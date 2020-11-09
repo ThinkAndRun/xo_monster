@@ -5,7 +5,7 @@ import store from './store'
 function urlWithToken() {
     let storeData = JSON.parse(localStorage.getItem('xoMonster'))
     let token = storeData ? storeData['access'] : ''
-    return `ws://${window.location.host}/cable?token=${token}`
+    return `wss://${window.location.host}/cable?token=${token}`
 }
 
 Vue.use(ActionCableVue, {

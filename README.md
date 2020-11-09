@@ -1,27 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To start a game:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-heroku buildpacks:set heroku/ruby
-heroku buildpacks:add --index 1 heroku/nodejs
+1) Register and log in
+2) Press the "start" button (check out game settings if you wish)
+3) Share game url with other player

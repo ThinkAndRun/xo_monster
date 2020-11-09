@@ -1,6 +1,6 @@
-require "numo/narray"
-
 class Board
+  require 'matrix'
+
   # maintains board state as int array where:
   MARKS = {"X": 1, "O": 0, " ": -1}
   # 1  -> player X mark
@@ -20,9 +20,7 @@ class Board
     raise 'min dimension of board must be greater than K' if [@m_length, @n_length].min < @k_length
     raise 'dimensions exceeds limit' if @m_length > 999 || @n_length > 999
 
-    @board = Numo::Int8.zeros([@m_length, @n_length])
-    @board = @board.fill(-1)
-
+    @board = Matrix.build(@m_length, @n_length) { -1 }
     steps.each do |step|
       set_move(step)
     end
@@ -56,10 +54,9 @@ class Board
     # checks all iterations of the board to see if it's finished
     catscnt = 0 #keeping track of if all the subboards that are cat's game'd
     subboardcnt = 0
-    # tempboard = Numo::Int8.zeros(@k_length, @k_length) #temp square board to check game
     for i in @k_length.upto(@m_length)
       for j in @k_length.upto(@n_length)
-        tempboard = @board[i - @k_length...i, j - @k_length...j]
+        tempboard = @board.minor(i - @k_length...i, j - @k_length...j)
         ret = check_square(tempboard)
         subboardcnt = subboardcnt + 1
         catscnt = catscnt + 1 if ret == 2 # if any subboard returns a non-cat's game, it's not over
@@ -81,16 +78,16 @@ class Board
     end
 
     # all same marker in a row
-    for row in @k_length.times.map{ |idx| board[idx, 0..-1] }
+    for row in @k_length.times.map{ |idx| board.row(idx).to_a }
       return row[0] if check_func.call(row)
     end
 
     # all same marker in a col
-    for col in @k_length.times.map{ |idx| board[0..-1, idx] }
+    for col in @k_length.times.map{ |idx| board.column(idx).to_a }
       return col[0] if check_func.call(col)
     end
 
-    pos_diag = board.diagonal
+    pos_diag = board.each(:diagonal).to_a
     neg_diag = @k_length.times.map{ |idx| board[idx, (@k_length - 1) - idx]}
 
     # check pos_diag
@@ -102,7 +99,7 @@ class Board
     end
 
     # cats game
-    return cats_game if board[0..-1].to_a.select{|el| el == -1}.count == 0
+    return cats_game if board.to_a.flatten.select{|el| el == -1}.count == 0
 
     # game not over
     game_ongoing

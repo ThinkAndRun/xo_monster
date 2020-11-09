@@ -231,7 +231,6 @@ export default {
       this.gameSettings.form.winLineLimit = this.winLineLimit
     },
     startNewGame() {
-      console.log('start')
       let params = {
         settings: {
           fieldSize: this.fieldSize,
