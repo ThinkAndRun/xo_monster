@@ -2,11 +2,17 @@
 <html>
   <head>
     <title>XO Monster</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= javascript_pack_tag 'client_vue' %>
-    <%= stylesheet_pack_tag 'client_vue' %>
+    <%= favicon_link_tag asset_path('client_favicon.ico') %>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <%= javascript_pack_tag 'client' %>
+    <%= stylesheet_pack_tag 'client' %>
   </head>
-  <body></body>
+  <body>
+    <div id="client_app"></div>
+  </body>
 </html>

@@ -1,0 +1,14 @@
+default: &default
+  id: <%= ENV['XO_MONSTER_ID'] || 1 %>
+  name: <%= ENV['XO_MONSTER_NAME'] || 'XO Monster' %>
+  email: <%= ENV['XO_MONSTER_EMAIL'] || 'xo-monster' %>
+  password: <%= ENV['XO_MONSTER_PASSWORD'] || 'wZ#4eo1%k*UU@Jf6sDY' %>
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
